@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const CoffeeShopController = require("../controllers/coffeeShopController");
 
-router.post("/", CoffeeShopController.addCoffeeShop);
+const upload = require("../middleware/upload");
 
-router.get("/", CoffeeShopController.getCoffeeShop);
+router.post("/add", upload.any(), CoffeeShopController.addCoffeeShop);
+
+router.get("/getall", CoffeeShopController.getCoffeeShop);
 
 module.exports = router;
