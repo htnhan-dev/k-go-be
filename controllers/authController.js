@@ -103,6 +103,52 @@ const authController = {
       res.status(200).json(err);
     }
   },
+
+  updatePassword: async (req, res) => {
+    try {
+      const id = req.body.id;
+      const userData = await User.findById(id);
+
+      const validPassword = await bcrypt.compare(
+        req.body.passwordOld,
+        userData.password
+      );
+      if (!validPassword) {
+        return res.status(200).json("Wrong password");
+      } else {
+        const salt = await bcrypt.genSalt(10);
+        const hashed = await bcrypt.hash(req.body.passwordNew, salt);
+        const updatePass = await User.findByIdAndUpdate(
+          { _id: id },
+          { $set: { password: hashed } }
+        );
+      }
+
+      res.status(200).json("Change Password Success !");
+    } catch (err) {
+      res.status(200).json(err);
+    }
+  },
+
+  updateAvatar: async (req, res) => {
+    try {
+      const id = req.body.id;
+
+      const path = req.file.path;
+
+      const updateAvatar = await User.findByIdAndUpdate(
+        { _id: id },
+        {
+          $set: { avatar: path },
+        }
+      );
+      const userData = await User.findById(id);
+
+      res.status(200).json(userData);
+    } catch (err) {
+      res.status(200).json(err);
+    }
+  },
 };
 
 module.exports = authController;

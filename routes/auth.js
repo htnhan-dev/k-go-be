@@ -2,6 +2,8 @@ const authController = require("../controllers/authController");
 
 const router = require("express").Router();
 
+const upload = require("../middleware/upload");
+
 // Dang ky
 router.post("/register", authController.registerUser);
 //Dang nhap
@@ -14,5 +16,13 @@ router.post("/detail-user", authController.getDetailUser);
 router.put("/update-email", authController.updateEmail);
 //Cap nhat so dien thoai
 router.put("/update-phone", authController.updatePhone);
+//Cap nhat mat khau
+router.put("/update-password", authController.updatePassword);
+//Cap nhat avartar
+router.put(
+  "/update-avatar",
+  upload.single("avatar"),
+  authController.updateAvatar
+);
 
 module.exports = router;
