@@ -10,6 +10,7 @@ const coffeeShopController = {
         address: req.body.address,
         district: req.body.district,
         direct: req.body.direct,
+        category: req.body.category,
         description: req.body.description,
         contact: JSON.parse(req.body.contact),
         isBoss: req.body.isBoss,

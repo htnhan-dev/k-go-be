@@ -38,6 +38,14 @@ app.use("/api/auth", authRouter);
 const coffeeShopRouter = require("./routes/coffeeShop");
 app.use("/api/place", coffeeShopRouter);
 
+// ------------------------- ADMIN
+// District
+const districtRouter = require("./routes/district");
+app.use("/api/district", districtRouter);
+// Category
+const categoryRouter = require("./routes/category");
+app.use("/api/category", categoryRouter);
+
 app.listen(8000, () => {
   console.log("K-go: ", "Server is running ...");
 });

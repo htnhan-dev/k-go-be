@@ -12,6 +12,10 @@ const coffeeShopSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
     address: {
       type: String,
       required: true,
@@ -48,7 +52,7 @@ const coffeeShopSchema = new mongoose.Schema(
     },
     status: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   { timestamps: true }
