@@ -10,4 +10,5 @@ router.get("/detail/:id", blogController.getDetail);
 
 router.get("/delete/:id", blogController.deleteBlog);
 
+router.get("/blog-category/:idcategory", blogController.showbyCate);
 module.exports = router;

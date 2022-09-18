@@ -38,11 +38,22 @@ const blogController = {
       res.status(200).json(err);
     }
   },
+
   deleteBlog: async (req, res) => {
     try {
       const id = req.params.id;
       const blog = await Blog.findOneAndRemove({ _id: id });
       const listBlog = await Blog.find();
+      res.status(200).json(listBlog);
+    } catch (err) {
+      res.status(200).json(err);
+    }
+  },
+
+  showbyCate: async (req, res) => {
+    try {
+      const cate = req.params.idcategory;
+      const listBlog = await Blog.find({ categoryBlog: cate });
       res.status(200).json(listBlog);
     } catch (err) {
       res.status(200).json(err);
