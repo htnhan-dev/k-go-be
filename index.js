@@ -55,7 +55,12 @@ app.use("/api/category", categoryRouter);
 // Promo
 const promoRouter = require("./routes/promo");
 app.use("/api/promo", promoRouter);
-
+// Cate blog
+const categoryBlogRouter = require("./routes/categoryBlog");
+app.use("/api/categoryblog", categoryBlogRouter);
+// BLog
+const blogRouter = require("./routes/blog");
+app.use("/api/blog", blogRouter);
 //start server heroku
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
