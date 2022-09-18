@@ -7,6 +7,7 @@ const categoryController = {
       const newCategory = await new Category({
         name: req.body.name,
         description: req.body.description,
+        slug: req.body.slug,
       });
 
       if (req.file) {
@@ -54,6 +55,7 @@ const categoryController = {
             name: req.body.name,
             description: req.body.description,
             thumnail: req.file.path,
+            slug: req.body.slug,
           }
         );
       } else {
@@ -62,6 +64,7 @@ const categoryController = {
           {
             name: req.body.name,
             description: req.body.description,
+            slug: req.body.slug,
           }
         );
       }

@@ -7,6 +7,7 @@ const dictrictController = {
       const newDictrict = await new District({
         name: req.body.name,
         description: req.body.description,
+        slug: req.body.slug,
       });
 
       if (req.file) {
@@ -53,6 +54,7 @@ const dictrictController = {
             name: req.body.name,
             description: req.body.description,
             thumnail: req.file.path,
+            slug: req.body.slug,
           }
         );
       } else {
@@ -61,6 +63,7 @@ const dictrictController = {
           {
             name: req.body.name,
             description: req.body.description,
+            slug: req.body.slug,
           }
         );
       }

@@ -7,4 +7,17 @@ router.post("/add", upload.any(), CoffeeShopController.addCoffeeShop);
 
 router.get("/getall", CoffeeShopController.getCoffeeShop);
 
+router.post("/detail", CoffeeShopController.getDetailCoffeeShop);
+
+router.get("/approve/:id", CoffeeShopController.approveCoffeeShop);
+
+router.get("/delete/:id", CoffeeShopController.deleteCoffeeShop);
+
+router.post("/district", CoffeeShopController.getByDistrict);
+
+router.post("/category", CoffeeShopController.getByCategory);
+
+router.post("/type", CoffeeShopController.getByType);
+
+router.post("/uti", CoffeeShopController.getByUtilities);
 module.exports = router;

@@ -11,7 +11,7 @@ router.post("/login", authController.loginUser);
 // Cap nhat ten nguoi dung
 router.put("/update-name", authController.updateName);
 //Get chi tiet 1 user
-router.post("/detail-user", authController.getDetailUser);
+router.get("/detail-user/:id", authController.getDetailUser);
 //Cap nhat email
 router.put("/update-email", authController.updateEmail);
 //Cap nhat so dien thoai
@@ -24,5 +24,11 @@ router.put(
   upload.single("avatar"),
   authController.updateAvatar
 );
+
+router.get("/getall", authController.getAllUser);
+
+router.get("/delete/:id", authController.deleteUser);
+
+router.get("/approve/:id", authController.approveUser);
 
 module.exports = router;

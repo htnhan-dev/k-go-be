@@ -50,10 +50,48 @@ const authController = {
     }
   },
 
+  approveUser: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const user = await User.findById(id);
+      const changeStatus = await User.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: { isOwner: !user.isOwner },
+        }
+      );
+      const listUser = await User.find();
+      res.status(200).json(listUser);
+    } catch (err) {
+      res.status(200).json(err);
+    }
+  },
+
+  //get all
+  getAllUser: async (req, res) => {
+    try {
+      const userList = await User.find();
+      res.status(200).json(userList);
+    } catch (err) {
+      res.status(200).json(err);
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const user = await User.findOneAndRemove({ _id: id });
+      const listUser = await User.find();
+      res.status(200).json(listUser);
+    } catch (err) {
+      res.status(200).json(err);
+    }
+  },
+
   // get one User
   getDetailUser: async (req, res) => {
     try {
-      const id = req.body.id;
+      const id = req.params.id;
       const userData = await User.findById(id);
       res.status(200).json(userData);
     } catch (err) {

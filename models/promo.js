@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const categorySchema = new mongoose.Schema(
+const promoSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -14,11 +14,17 @@ const categorySchema = new mongoose.Schema(
     thumnail: {
       type: String,
     },
-    slug: {
+    voucher: {
+      type: String,
+    },
+    place: {
+      type: String,
+    },
+    address: {
       type: String,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Category", categorySchema);
+module.exports = mongoose.model("Promo", promoSchema);
