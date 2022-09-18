@@ -56,6 +56,8 @@ app.use("/api/category", categoryRouter);
 const promoRouter = require("./routes/promo");
 app.use("/api/promo", promoRouter);
 
-app.listen(8000, () => {
+//start server heroku
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
   console.log("K-go: ", "Server is running ...");
 });
