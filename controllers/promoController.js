@@ -2,7 +2,7 @@ const Promo = require("../models/promo");
 const CoffeeShop = require("../models/coffeeShop");
 
 const promoController = {
-  // add
+  // add n
   addPromo: async (req, res) => {
     try {
       const placePromo = await CoffeeShop.findById(req.body.place);
