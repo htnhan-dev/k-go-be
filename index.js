@@ -8,9 +8,12 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 //Connect MongoDB
-mongoose.connect(process.env.MONGODB_URL, () => {
-  console.log("Connect Success MongoDB!");
-});
+mongoose.connect(
+  "mongodb+srv://kai31102001:kai31102001@k-go.ext5hwb.mongodb.net/?retryWrites=true&w=majority",
+  () => {
+    console.log("Connect Success MongoDB!");
+  }
+);
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
