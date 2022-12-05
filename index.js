@@ -63,6 +63,6 @@ const blogRouter = require("./routes/blog");
 app.use("/api/blog", blogRouter);
 //start server heroku
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
+app.listen(PORT, "192.168.99.103", () => {
   console.log("K-go: ", "Server is running ...");
 });

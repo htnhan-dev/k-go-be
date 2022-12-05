@@ -1,16 +1,28 @@
 const CoffeeShop = require("../models/coffeeShop");
+const Category = require("../models/category");
+const District = require("../models/district");
 
 const coffeeShopController = {
   // POST coffee shop
   addCoffeeShop: async (req, res) => {
-    console.log("req: ", req.type);
     try {
-      const newCoffee = new CoffeeShop({
+      const idCategory = req.body.category;
+      const listCategory = await Category.findById(idCategory);
+      const idDistrict = req.body.district;
+      const listDistrict = await District.findById(idDistrict);
+      console.log("listCategory: ", listCategory);
+      const newCoffee = await new CoffeeShop({
         name: req.body.name,
         address: req.body.address,
         district: req.body.district,
-        direct: req.body.direct,
-        category: req.body.category,
+        direct: {
+          _id: listDistrict._id,
+          title: listDistrict.name,
+        },
+        category: {
+          _id: listCategory._id,
+          title: listCategory.name,
+        },
         description: req.body.description,
         contact: JSON.parse(req.body.contact),
         isBoss: req.body.isBoss,
@@ -39,8 +51,10 @@ const coffeeShopController = {
       }
 
       const savedCoffee = await newCoffee.save();
+      console.log("savedCoffee: ", savedCoffee);
       res.status(200).json(savedCoffee);
     } catch (err) {
+      console.log("err: ", err);
       res.status(200).json(err);
     }
   },
