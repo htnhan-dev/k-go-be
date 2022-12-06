@@ -45,6 +45,9 @@ const reviewSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    slugPlace: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

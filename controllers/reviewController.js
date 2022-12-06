@@ -18,6 +18,7 @@ const reviewController = {
         avatar: user.avatar,
         idplace: req.body.idplace,
         place: place.name,
+        slugPlace: place.slug,
         rating: JSON.parse(req.body.rating),
       });
 
@@ -176,9 +177,14 @@ const reviewController = {
 
   placeReview: async (req, res) => {
     try {
-      const id = req.params.id;
-      const reviewList = await Review.find({ idplace: id });
-      res.status(200).json(reviewList);
+      const slug = req.query.slug;
+      await Review.find({ slugPlace: slug })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       ers.status(200).json(err);
     }

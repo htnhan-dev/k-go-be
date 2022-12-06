@@ -72,10 +72,14 @@ const coffeeShopController = {
   //getDetail
   getDetailCoffeeShop: async (req, res) => {
     try {
-      const id = req.body.id;
-
-      const place = await CoffeeShop.findById({ _id: id });
-      res.status(200).json(place);
+      const slug = req.query.slug;
+      await CoffeeShop.findOne({ slug: slug })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       res.status(200).json(err);
     }

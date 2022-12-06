@@ -7,7 +7,7 @@ router.post("/add", upload.any(), CoffeeShopController.addCoffeeShop);
 
 router.get("/getall", CoffeeShopController.getCoffeeShop);
 
-router.post("/detail", CoffeeShopController.getDetailCoffeeShop);
+router.get("/detail", CoffeeShopController.getDetailCoffeeShop);
 
 router.get("/approve/:id", CoffeeShopController.approveCoffeeShop);
 

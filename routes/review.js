@@ -20,6 +20,6 @@ router.get("/getall", reviewController.getAllReview);
 
 router.get("/user-review/:id", reviewController.userReview);
 
-router.get("/place/:id", reviewController.placeReview);
+router.get("/place", reviewController.placeReview);
 
 module.exports = router;
