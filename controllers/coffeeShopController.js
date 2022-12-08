@@ -62,7 +62,16 @@ const coffeeShopController = {
   // GET coffee shop
   getCoffeeShop: async (req, res) => {
     try {
-      const coffeeShops = await CoffeeShop.find();
+      const coffeeShops = await CoffeeShop.find({ status: true });
+      res.status(200).json(coffeeShops);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  getApprovalCoffeeShop: async (req, res) => {
+    try {
+      const coffeeShops = await CoffeeShop.find({ status: false });
       res.status(200).json(coffeeShops);
     } catch (err) {
       res.status(500).json(err);
@@ -87,17 +96,21 @@ const coffeeShopController = {
 
   approveCoffeeShop: async (req, res) => {
     try {
-      const id = req.params.id;
-      console.log("id: ", id);
-      const list = await CoffeeShop.findById(id);
-      const place = await CoffeeShop.findOneAndUpdate(
-        { _id: id },
-        { $set: { status: !list.status } }
+      const listID = req.body.listTD;
+      console.log("listID: ", listID);
+      await CoffeeShop.updateMany(
+        { _id: { $in: listID } },
+        { $set: { status: true } }
       );
-      const listPlace = await CoffeeShop.find();
-      res.status(200).json(listPlace);
+      await CoffeeShop.find({ status: false })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
-      res.status(200).json(err);
+      res.status(500).json(err);
     }
   },
 
