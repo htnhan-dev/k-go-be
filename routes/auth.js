@@ -31,4 +31,8 @@ router.get("/delete/:id", authController.deleteUser);
 
 router.get("/approve/:id", authController.approveUser);
 
+router.post("/follow", authController.followUser);
+
+router.post("/unfollow", authController.unFollowUser);
+
 module.exports = router;

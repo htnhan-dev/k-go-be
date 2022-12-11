@@ -22,4 +22,6 @@ router.post("/category", CoffeeShopController.getByCategory);
 router.post("/type", CoffeeShopController.getByType);
 
 router.post("/uti", CoffeeShopController.getByUtilities);
+
+router.post("/filter", CoffeeShopController.filterCoffeeShop);
 module.exports = router;

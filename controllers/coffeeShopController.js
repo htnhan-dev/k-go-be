@@ -165,6 +165,108 @@ const coffeeShopController = {
       res.status(200).json(err);
     }
   },
+
+  filterCoffeeShop: async (req, res) => {
+    try {
+      const districts = req.body.districts;
+
+      const categories = req.body.categories;
+
+      console.log("categories: ", categories);
+
+      const types = req.body.types;
+      console.log("types: ", types);
+      const handys = req.body.handys;
+      console.log("handys: ", handys);
+
+      // if (districts) {
+      //   await CoffeeShop.find({
+      //     district: { $in: districts },
+      //   })
+      //     .then((response) => {
+      //       res.status(200).json(response);
+      //     })
+      //     .catch((err) => {
+      //       res.status(500).json(err);
+      //     });
+      // }
+
+      // if (types && !districts && !categories && !handys) {
+      //   await CoffeeShop.find({
+      //     type: { $in: types },
+      //   })
+      //     .then((response) => {
+      //       res.status(200).json(response);
+      //     })
+      //     .catch((err) => {
+      //       res.status(500).json(err);
+      //     });
+      // }
+
+      // if (handys && !districts && !categories && !types) {
+      //   await CoffeeShop.find({
+      //     utilities: { $in: handys },
+      //   })
+      //     .then((response) => {
+      //       res.status(200).json(response);
+      //     })
+      //     .catch((err) => {
+      //       res.status(500).json(err);
+      //     });
+      // }
+      if (districts) {
+        await CoffeeShop.find({
+          district: { $in: districts },
+        })
+          .then((response) => {
+            res.status(200).json(response);
+          })
+          .catch((err) => {
+            res.status(500).json(err);
+          });
+      } else {
+        await CoffeeShop.find()
+          .then((response) => {
+            res.status(200).json(response);
+          })
+          .catch((err) => {
+            res.status(500).json(err);
+          });
+      }
+
+      // if (districts && categories && types) {
+      //   await CoffeeShop.find({
+      //     district: { $in: districts },
+      //     type: { $in: types },
+      //     category: { $in: categories },
+      //   })
+      //     .then((response) => {
+      //       res.status(200).json(response);
+      //     })
+      //     .catch((err) => {
+      //       res.status(500).json(err);
+      //     });
+      // }
+
+      // if (districts && categories && types && handys) {
+      //   await CoffeeShop.find({
+      //     district: { $in: districts },
+      //     type: { $in: types },
+      //     category: { $in: categories },
+      //     utilities: { $in: handys },
+      //   })
+      //     .then((response) => {
+      //       res.status(200).json(response);
+      //     })
+      //     .catch((err) => {
+      //       res.status(500).json(err);
+      //     });
+      // }
+    } catch (err) {
+      console.log("err: ", err);
+      res.status(500).json(err);
+    }
+  },
 };
 
 module.exports = coffeeShopController;

@@ -187,6 +187,110 @@ const authController = {
       res.status(200).json(err);
     }
   },
+
+  // Follow Func
+  followUser: async (req, res) => {
+    try {
+      // Followwing - Danh sach theo doi cua tai khoan
+      // Follower - Danh sach nguoi theo doi tai khoan
+
+      const idFollow = req.body.follow;
+      const idFollower = req.body.follower;
+
+      // get info User
+      const userFollow = await User.findById(idFollow);
+
+      // get info User Follower
+      const userFollower = await User.findById(idFollower);
+
+      await User.findOneAndUpdate(
+        { _id: idFollow },
+        {
+          $push: {
+            following: {
+              _id: userFollower._id,
+              userName: userFollower.userName,
+              email: userFollower.email,
+              avatar: userFollower.avatar,
+            },
+          },
+        },
+        { safe: true, multi: false }
+      );
+      await User.findOneAndUpdate(
+        {
+          _id: idFollower,
+        },
+        {
+          $push: {
+            follower: {
+              _id: userFollow._id,
+              userName: userFollow.userName,
+              email: userFollow.email,
+              avatar: userFollow.avatar,
+            },
+          },
+        }
+      );
+      await User.find()
+        .then((response) => {
+          res.status(200).json({ message: "Success", data: response });
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    } catch (err) {
+      console.log("err: ", err);
+      res.status(500).json(err);
+    }
+  },
+
+  unFollowUser: async (req, res) => {
+    try {
+      const idFollow = req.body.follow;
+      const idFollower = req.body.follower;
+
+      // get info User
+      const userFollow = await User.findById(idFollow);
+
+      // get info User Follower
+      const userFollower = await User.findById(idFollower);
+
+      await User.findOneAndUpdate(
+        { _id: idFollow },
+        {
+          $pull: {
+            following: {
+              _id: userFollower._id,
+            },
+          },
+        },
+        { safe: true, multi: false }
+      );
+      await User.findOneAndUpdate(
+        {
+          _id: idFollower,
+        },
+        {
+          $pull: {
+            follower: {
+              _id: userFollow._id,
+            },
+          },
+        }
+      );
+      await User.find()
+        .then((response) => {
+          res.status(200).json({ message: "Success", data: response });
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    } catch (err) {
+      console.log("err: ", err);
+      res.status(500).json(err);
+    }
+  },
 };
 
 module.exports = authController;
