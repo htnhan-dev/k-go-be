@@ -35,4 +35,8 @@ router.post("/follow", authController.followUser);
 
 router.post("/unfollow", authController.unFollowUser);
 
+router.get("/get-notification", authController.getNotification);
+
+router.get("/read-notification", authController.readNotification);
+
 module.exports = router;

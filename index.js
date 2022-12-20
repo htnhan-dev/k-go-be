@@ -45,6 +45,14 @@ app.use("/api/place", coffeeShopRouter);
 const reviewRouter = require("./routes/review");
 app.use("/api/review", reviewRouter);
 
+//Chat
+const chatRouter = require("./routes/chat");
+app.use("/api/chat", chatRouter);
+
+// Messsage
+const messageRouter = require("./routes/message");
+app.use("/api/message", messageRouter);
+
 // ------------------------- ADMIN
 // District
 const districtRouter = require("./routes/district");

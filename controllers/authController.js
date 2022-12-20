@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const Chat = require("../models/chat");
+const Notification = require("../models/notification");
 
 const authController = {
   // Register
@@ -232,6 +234,30 @@ const authController = {
           },
         }
       );
+
+      const newChat = new Chat({
+        member: [idFollow, idFollower],
+      });
+      newChat.save();
+
+      const textNoti = `${userFollow.userName} vừa theo dõi bạn`;
+
+      const newNoti = new Notification({
+        sender: {
+          _id: userFollow._id,
+          userName: userFollow.userName,
+          avatar: userFollow.avatar,
+        },
+        receiver: {
+          _id: userFollower._id,
+          userName: userFollower.userName,
+          avatar: userFollower.avatar,
+        },
+        content: textNoti,
+      });
+
+      newNoti.save();
+
       await User.find()
         .then((response) => {
           res.status(200).json({ message: "Success", data: response });
@@ -279,6 +305,11 @@ const authController = {
           },
         }
       );
+
+      await Chat.findOneAndDelete({
+        member: { $all: [idFollow, idFollower] },
+      });
+
       await User.find()
         .then((response) => {
           res.status(200).json({ message: "Success", data: response });
@@ -290,6 +321,37 @@ const authController = {
       console.log("err: ", err);
       res.status(500).json(err);
     }
+  },
+
+  getNotification: async (req, res) => {
+    try {
+      const idUser = req.query.id;
+      await Notification.find({ "receiver._id": idUser })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  readNotification: async (req, res) => {
+    try {
+      const id = req.query.id;
+      const idUser = req.query.idUser;
+      await Notification.findOneAndUpdate({ _id: id }, { status: true });
+
+      await Notification.find({ "receiver._id": idUser })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    } catch (err) {}
   },
 };
 
