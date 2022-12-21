@@ -197,7 +197,9 @@ const authController = {
       // Follower - Danh sach nguoi theo doi tai khoan
 
       const idFollow = req.body.follow;
+      console.log("idFollow: ", idFollow);
       const idFollower = req.body.follower;
+      console.log("idFollower: ", idFollower);
 
       // get info User
       const userFollow = await User.findById(idFollow);

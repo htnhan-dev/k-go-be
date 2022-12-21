@@ -189,6 +189,29 @@ const reviewController = {
       ers.status(200).json(err);
     }
   },
+
+  getReviewFollow: async (req, res) => {
+    try {
+      const idUser = req.query.idUser;
+      const profile = await User.findById(idUser);
+      const listID = [];
+      profile.following.forEach((item) => {
+        let user = item._id;
+        listID.push(user);
+      });
+      await Review.find({ iduser: { $in: listID } })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          console.log("err: ", err);
+          res.status(500).json(err);
+        });
+    } catch (err) {
+      console.log("err: ", err);
+      res.status(500).json(err);
+    }
+  },
 };
 
 module.exports = reviewController;

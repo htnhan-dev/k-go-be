@@ -22,4 +22,6 @@ router.get("/user-review/:id", reviewController.userReview);
 
 router.get("/place", reviewController.placeReview);
 
+router.get("/review-follow", reviewController.getReviewFollow);
+
 module.exports = router;
