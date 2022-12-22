@@ -53,14 +53,31 @@ const reviewController = {
 
   likeReview: async (req, res) => {
     try {
-      const id = req.params.id;
-      const like = await Review.findOneAndUpdate(
-        { _id: id },
-        { $inc: { like: 1 } }
+      const idUser = req.query.idUser;
+      const idPost = req.query.idPost;
+      const typeLike = req.query.type;
+      const userInfo = await User.findById(idUser);
+      await Review.findOneAndUpdate(
+        { _id: idPost },
+        {
+          $push: {
+            like: {
+              idUser: userInfo._id,
+              userName: userInfo.userName,
+              avatar: userInfo.avatar,
+              typeLike: Number(typeLike),
+            },
+          },
+        }
       );
-      const review = await Review.findById(id);
-      const listReview = await Review.find().sort({ createdAt: -1 });
-      res.status(200).json(listReview);
+      await Review.find()
+        .sort({ createdAt: -1 })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       res.status(200).json(err);
     }
@@ -85,13 +102,27 @@ const reviewController = {
 
   unLikeReview: async (req, res) => {
     try {
-      const id = req.params.id;
-      const like = await Review.findOneAndUpdate(
-        { _id: id },
-        { $inc: { like: -1 } }
+      const idUser = req.query.idUser;
+      const idPost = req.query.idPost;
+      const userInfo = await User.findById(idUser);
+      await Review.findOneAndUpdate(
+        { _id: idPost },
+        {
+          $pull: {
+            like: {
+              idUser: userInfo._id,
+            },
+          },
+        }
       );
-      const listReview = await Review.find().sort({ createdAt: -1 });
-      res.status(200).json(listReview);
+      await Review.find()
+        .sort({ createdAt: -1 })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       res.status(200).json(err);
     }

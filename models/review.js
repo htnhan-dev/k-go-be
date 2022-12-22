@@ -30,10 +30,18 @@ const reviewSchema = new mongoose.Schema(
       type: String,
     },
     rating: [],
-    like: {
-      type: Number,
-      default: 0,
-    },
+    like: [
+      {
+        _id: false,
+        idUser: {
+          type: String,
+          unique: true,
+        },
+        userName: String,
+        avatar: String,
+        typeLike: Number,
+      },
+    ],
     comment: {
       type: [],
       timestamps: true,
