@@ -29,7 +29,9 @@ const reviewSchema = new mongoose.Schema(
     place: {
       type: String,
     },
-    rating: [],
+    rating: {
+      type: Object,
+    },
     like: [
       {
         _id: false,
