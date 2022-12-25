@@ -20,6 +20,7 @@ const authController = {
         following: [],
         follower: [],
         avatar: null,
+        sex: 0,
       });
 
       const user = await newUser.save();
@@ -116,6 +117,21 @@ const authController = {
     }
   },
 
+  updateSex: async (req, res) => {
+    try {
+      const { idUser, sex } = req.body;
+      await User.findByIdAndUpdate(
+        { _id: idUser },
+        { $set: { sex: Number(sex) } }
+      );
+      const result = await User.findById(idUser);
+      res.status(200).json(result);
+    } catch (err) {
+      console.log("err: ", err);
+      res.status(500).json(err);
+    }
+  },
+
   updateEmail: async (req, res) => {
     try {
       const id = req.body.id;
@@ -141,6 +157,29 @@ const authController = {
       res.status(200).json(result);
     } catch (err) {
       res.status(200).json(err);
+    }
+  },
+
+  updateSocial: async (req, res) => {
+    try {
+      const { idUser, facebook, instagram, tiktok } = req.body;
+      console.log("idUser: ", idUser);
+
+      await User.findByIdAndUpdate(
+        { _id: idUser },
+        {
+          socialList: {
+            facebook: facebook,
+            instagram: instagram,
+            tiktok: tiktok,
+          },
+        }
+      );
+      const result = await User.findById(idUser);
+      res.status(200).json(result);
+    } catch (err) {
+      console.log("err: ", err);
+      res.status(500).json(err);
     }
   },
 

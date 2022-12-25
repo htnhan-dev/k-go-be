@@ -22,8 +22,12 @@ const userSchema = new mongoose.Schema(
     phoneNumber: {
       type: Number,
     },
+    sex: {
+      type: Number,
+      default: 0,
+    },
     socialList: {
-      type: [],
+      type: Object,
     },
     following: {
       type: [],

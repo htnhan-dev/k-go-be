@@ -10,6 +10,11 @@ router.post("/register", authController.registerUser);
 router.post("/login", authController.loginUser);
 // Cap nhat ten nguoi dung
 router.put("/update-name", authController.updateName);
+//Cap nhat gioi tinh
+router.put("/update-sex", authController.updateSex);
+//ca nhat mang xa hoi
+router.put("/update-social", authController.updateSocial);
+
 //Get chi tiet 1 user
 router.get("/detail-user/:id", authController.getDetailUser);
 //Cap nhat email
