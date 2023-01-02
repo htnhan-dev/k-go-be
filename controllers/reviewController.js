@@ -194,6 +194,21 @@ const reviewController = {
     }
   },
 
+  detailReview: async (req, res) => {
+    try {
+      const { idReview } = req.query;
+      await Review.findOne({ _id: idReview })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    } catch (err) {
+      res.status(200).json(err);
+    }
+  },
+
   userReview: async (req, res) => {
     try {
       const idUser = req.params.id;

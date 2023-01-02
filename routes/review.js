@@ -18,6 +18,8 @@ router.post("/commentprofile", reviewController.commentProfileReview);
 
 router.get("/getall", reviewController.getAllReview);
 
+router.get("/detail", reviewController.detailReview);
+
 router.get("/user-review/:id", reviewController.userReview);
 
 router.get("/place", reviewController.placeReview);

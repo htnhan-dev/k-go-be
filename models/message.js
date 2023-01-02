@@ -11,6 +11,13 @@ const messageSchema = new mongosee.Schema(
     text: {
       type: String,
     },
+    type: {
+      type: Number,
+      default: 1,
+    },
+    images: {
+      type: Array,
+    },
   },
   { timestamps: true }
 );
