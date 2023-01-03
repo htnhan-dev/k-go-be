@@ -127,10 +127,15 @@ const coffeeShopController = {
 
   getByCategory: async (req, res) => {
     try {
-      const cate = req.body.category;
-      console.log("cate: ", cate);
-      const listPlace = await CoffeeShop.find({ category: cate });
-      res.status(200).json(listPlace);
+      const { listCategory } = req.body;
+      await CoffeeShop.find({ category: { $in: JSON.parse(listCategory) } })
+
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       res.status(200).json(err);
     }
@@ -138,9 +143,14 @@ const coffeeShopController = {
 
   getByDistrict: async (req, res) => {
     try {
-      const dis = req.body.district;
-      const placeList = await CoffeeShop.find({ district: dis });
-      res.status(200).json(placeList);
+      const { listDistrict } = req.body;
+      await CoffeeShop.find({ district: { $in: JSON.parse(listDistrict) } })
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       console.log("err: ", err);
     }
@@ -148,9 +158,15 @@ const coffeeShopController = {
 
   getByType: async (req, res) => {
     try {
-      const type = req.body.type;
-      const typeList = await CoffeeShop.find({ type: type });
-      res.status(200).json(typeList);
+      const { listType } = req.body;
+      await CoffeeShop.find({ type: { $in: JSON.parse(listType) } })
+
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       res.status(200).json(err);
     }
@@ -158,9 +174,15 @@ const coffeeShopController = {
 
   getByUtilities: async (req, res) => {
     try {
-      const uti = req.body.uti;
-      const utiList = await CoffeeShop.find({ utilities: uti });
-      res.status(200).json(utiList);
+      const { listUtilities } = req.body;
+      await CoffeeShop.find({ utilities: { $in: JSON.parse(listUtilities) } })
+
+        .then((response) => {
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
     } catch (err) {
       res.status(200).json(err);
     }
