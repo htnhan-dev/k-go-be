@@ -87,6 +87,7 @@ io.on("connection", (socket) => {
       activeUsers.push({ userId: newUserId, socketId: socket.id });
       console.log("New User Connected", activeUsers);
     }
+    console.log("activeUsers: ", activeUsers);
     // send all active users to new user
     io.emit("get-users", activeUsers);
   });
@@ -102,9 +103,10 @@ io.on("connection", (socket) => {
   // send message to a specific user
   socket.on("send-message", (data) => {
     const { receiverId } = data;
+    console.log("receiverId: ", receiverId);
     const user = activeUsers.find((user) => user.userId === receiverId);
-    console.log("Sending from socket to :", receiverId);
-    console.log("Data: ", data);
+    console.log("user: ", user);
+
     if (user) {
       io.to(user.socketId).emit("recieve-message", data);
     }
@@ -113,6 +115,6 @@ io.on("connection", (socket) => {
 
 //start server heroku
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, "192.168.99.103", () => {
+app.listen(PORT, "192.168.99.102", () => {
   console.log("K-go: ", "Server is running ...");
 });

@@ -6,23 +6,12 @@ const coffeeShopController = {
   // POST coffee shop
   addCoffeeShop: async (req, res) => {
     try {
-      const idCategory = req.body.category;
-      const listCategory = await Category.findById(idCategory);
-      const idDistrict = req.body.district;
-      const listDistrict = await District.findById(idDistrict);
-      console.log("listCategory: ", listCategory);
       const newCoffee = await new CoffeeShop({
         name: req.body.name,
         address: req.body.address,
         district: req.body.district,
-        direct: {
-          _id: listDistrict._id,
-          title: listDistrict.name,
-        },
-        category: {
-          _id: listCategory._id,
-          title: listCategory.name,
-        },
+        direct: req.body.direct,
+        category: req.body.category,
         description: req.body.description,
         contact: JSON.parse(req.body.contact),
         isBoss: req.body.isBoss,
@@ -128,7 +117,10 @@ const coffeeShopController = {
   getByCategory: async (req, res) => {
     try {
       const { listCategory } = req.body;
-      await CoffeeShop.find({ category: { $in: JSON.parse(listCategory) } })
+      await CoffeeShop.find({
+        category: { $in: JSON.parse(listCategory) },
+        status: true,
+      })
 
         .then((response) => {
           res.status(200).json(response);
@@ -144,7 +136,10 @@ const coffeeShopController = {
   getByDistrict: async (req, res) => {
     try {
       const { listDistrict } = req.body;
-      await CoffeeShop.find({ district: { $in: JSON.parse(listDistrict) } })
+      await CoffeeShop.find({
+        district: { $in: JSON.parse(listDistrict) },
+        status: true,
+      })
         .then((response) => {
           res.status(200).json(response);
         })
@@ -159,7 +154,10 @@ const coffeeShopController = {
   getByType: async (req, res) => {
     try {
       const { listType } = req.body;
-      await CoffeeShop.find({ type: { $in: JSON.parse(listType) } })
+      await CoffeeShop.find({
+        type: { $in: JSON.parse(listType) },
+        status: true,
+      })
 
         .then((response) => {
           res.status(200).json(response);
@@ -175,7 +173,10 @@ const coffeeShopController = {
   getByUtilities: async (req, res) => {
     try {
       const { listUtilities } = req.body;
-      await CoffeeShop.find({ utilities: { $in: JSON.parse(listUtilities) } })
+      await CoffeeShop.find({
+        utilities: { $in: JSON.parse(listUtilities) },
+        status: true,
+      })
 
         .then((response) => {
           res.status(200).json(response);

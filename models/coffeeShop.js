@@ -9,12 +9,10 @@ const coffeeShopSchema = new mongoose.Schema(
       unique: true,
     },
     district: {
-      _id: String,
-      title: String,
+      type: String,
     },
     category: {
-      _id: String,
-      title: String,
+      type: String,
     },
     address: {
       type: String,
